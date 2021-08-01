@@ -1,21 +1,33 @@
+import React, { useState } from "react";
+import Modal from "react-modal";
+
 import matrix from './matrix.png';
 import button from './button.png';
 import './App.css';
 
+Modal.setAppElement("#root");
+
 function App() {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  function toggleModal() {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
         <img src={matrix} className="image" alt="matrix" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <img onClick={toggleModal} src={button} alt="button" />        
+        <Modal
+        isOpen={isOpen}
+        onRequestClose={toggleModal}
+        contentLabel="My dialog"
         >
-          <img src={button} alt="button" />        
-        </a>
-      </header>
+          <div> I am from ... </div><br/>
+          <div> My question is ... </div><br/>
+          <button onClick={toggleModal}>Close modal</button>
+      </Modal>  
     </div>
   );
 }
